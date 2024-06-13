@@ -1,0 +1,59 @@
+.box-item{
+    position: relative;
+}
+
+.box-item img {
+    height: 35vw;
+    width:100%;
+    display: block; 
+}
+
+
+.fotoresult {
+    position: relative;
+    filter:brightness(0.5);
+    object-fit: cover;
+    /* height: 50%; */
+    display: flex;
+    z-index: 1;
+}
+
+.box{
+    position: absolute;
+    /* bottom: 20px;    */
+    top: 650px;
+    width: 100%; /* Sesuaikan lebar kotak */
+    height: 25%; /* Sesuaikan tinggi kotak */
+    background-color: white;
+    top: 75%; /* Letakkan kotak di sudut kiri atas */
+    z-index: 1; /* Pastikan kotak berada di atas gambar */
+    /* justify-content: center; */
+    /* align-items: center; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-button {
+    width: 50px;  /* Ukuran lingkaran luar */
+    height: 50px;
+    border: 1px solid #A67A4D;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.circle-button .inner-circle {
+    width: 30px;  /* Ukuran lingkaran dalam */
+    height: 30px;
+    background-color: #A67A4D; /* Warna latar lingkaran dalam */
+    border-radius: 50%;
+}
+
+.foto-box{
+    width: 200px;
+    height: 200px;
+    z-index: 2;
+    border: 2px solid #fff; /* Color and thickness of the border */
+}

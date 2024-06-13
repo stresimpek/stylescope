@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Firebase Storage Items</title>
+    <style>
+        /* CSS to resize images */
+        .item-image {
+            width: 200px; /* Set a fixed width */
+            height: 200px; /* Maintain aspect ratio */
+            /* You can adjust the width as needed */
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Items</h1>
+    <div id="itemList"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+      
+        const firebaseConfig = {
+          apiKey: "AIzaSyCs809_T1AFMr-HQW84CEJ7d_Dz3ZCZIu0",
+          authDomain: "skintonecs.firebaseapp.com",
+          databaseURL: "https://skintonecs-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "skintonecs",
+          storageBucket: "skintonecs.appspot.com",
+          messagingSenderId: "1008643666957",
+          appId: "1:1008643666957:web:f2218c774fd24060e59144"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+
+        const listRef = ref(storage, 'Man/Beige');
+
+        function createItemElement(url, name) {
+            const div = document.createElement('div');
+            const image = document.createElement('img');
+            image.src = url;
+            image.alt = name;
+            image.classList.add('item-image'); // Add a class for styling
+            div.appendChild(image);
+            return div;
+        }
+
+        const itemList = document.getElementById('itemList');
+        listAll(listRef)
+        .then((res) => {
+            res.items.forEach((itemRef) => {
+                getDownloadURL(itemRef).then((url) => {
+                    const itemElement = createItemElement(url, itemRef.name);
+                    itemList.appendChild(itemElement);
+                }).catch((error) => {
+                    console.error('Error getting download URL:', error);
+                });
+            });
+        }).catch((error) => {
+            console.error('Error listing items:', error);
+        });
+    </script>
+</body>
+</html>

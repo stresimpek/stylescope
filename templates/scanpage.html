@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- <title>Scan&Test</title> -->
+        <link rel="stylesheet" href="scanpage.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
+        <link rel="stylesheet" href="https://pyscript.net/releases/2024.5.2/core.css">
+        <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
+    </head>
+    <body>
+        <!-- <div class="box-item">
+            <a href="save.html">
+                <svg width="34" height="24" viewBox="0 0 34 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0.93934 10.9393C0.353553 11.5251 0.353553 12.4749 0.93934 13.0607L10.4853 22.6066C11.0711 23.1924 12.0208 23.1924 12.6066 22.6066C13.1924 22.0208 13.1924 21.0711 12.6066 20.4853L4.12132 12L12.6066 3.51472C13.1924 2.92893 13.1924 1.97919 12.6066 1.3934C12.0208 0.807611 11.0711 0.807611 10.4853 1.3934L0.93934 10.9393ZM34 10.5H2V13.5H34V10.5Z" fill="#797979"/>
+                </svg>   
+            </a>             
+            <img id="photo" class='fotoresult' src="public/resultkanan.png" alt="Result Image 3">
+            <div class="foto-box"></div>
+            <div class="box">
+                <a href="hasil-foto.html">
+                    <button class="circle-button" id="capture">
+                        <div class="inner-circle"></div>
+                    </button>
+                </a>
+            </div>
+        </div> -->
+        <div class="video-wrap">
+            <video id="video" playsinline autoplay></video>
+        </div>
+    
+
+
+        <div class="controller">
+            <button id="snap">Capture Frame</button>
+        </div>
+    
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    <script>
+         'use strict';
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snap = document.getElementById('snap');
+        const resultElement = document.getElementById('result');
+
+        const constraints = {
+            audio: false,
+            video: {
+                width: 640,
+                height: 480
+            }
+        };
+
+        async function init() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            } catch (e) {
+                console.error(`navigator.getUserMedia.error: ${e.toString()}`);
+            }
+        }
+
+        function handleSuccess(stream) {
+            window.stream = stream;
+            video.srcObject = stream;
+        }
+
+        init();
+        var context = canvas.getContext('2d');
+
+        snap.addEventListener('click', function () {
+            context.drawImage(video, 0, 0, 640, 480);
+            const imageData = canvas.toDataURL('image/jpeg', 0.5);
+            const blobData = dataURItoBlob(imageData);
+            const formData = new FormData();
+            formData.append('file', blobData, 'snapshot.jpg'); // Change the filename to snapshot.jpg
+            uploadImage(formData);
+        });
+
+        function dataURItoBlob(dataURI) {
+            const byteString = atob(dataURI.split(',')[1]);
+            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            const arrayBuffer = new ArrayBuffer(byteString.length);
+            const uint8Array = new Uint8Array(arrayBuffer);
+
+            for (let i = 0; i < byteString.length; i++) {
+                uint8Array[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([arrayBuffer], { type: mimeString });
+        }
+
+        async function uploadImage(formData) {
+            try {
+                const response = await fetch('/classify', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                resultElement.innerText =
+                    `Skin Tone: ${result.skin_tone}\nUndertone: ${result.undertone}`;
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+    </script>
+    </body>
+</html>

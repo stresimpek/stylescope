@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stylescope</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
+    <link rel="stylesheet" href="public/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="homepage.html#home">Home</a></li>
+                <li><a href="homepage.html#shop">Shop</a></li>
+                <div class="brand-container">
+                    <div class="brand">stylescope</div>
+                </div>
+                <li><a href="save.html">Scan</a></li>
+                <li><a href="landingpage.html#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content"></div>
+    <div class="header-line"></div>
+    <div class="image-container">
+        <div class="circle2"></div>
+        <img src="public/bintang.png" class="bintang2">
+        <div class="stylescope-container">
+            <div class="style">style</div>
+            <div class="scope">scope</div>
+        </div>
+        <img src="public/landingcewe.png" alt="Landing Image" class="landing-image">
+        <img src="public/bintang.png" class="bintang">
+        <form action="save" method="post">
+            <button type="submit" class="button">
+                SCAN NOW
+                <img src="public/panah.png" alt="Arrow">
+            </button>
+        </form>        
+        <div class="circle"></div>
+    </div>
+    <div class="boxbawah"></div>
+    <div id="about" class="aboutus-container">
+        <div class="circle3"></div>
+        <img src="public/bintang.png" class="bintang3">
+        <div class="about">About</div>
+        <div class="us">Us</div>
+        <img src="public/bintang.png" class="bintang4">
+        <p class="aboutusparagraph">
+            Welcome to StyleScope, your ultimate fashion companion! StyleScope is a cutting-edge application designed to
+            revolutionize the way you approach fashion and personal style. Our advanced scanning technology analyzes
+            your unique physical features to provide personalized fashion recommendations that enhance your natural
+            beauty and suit your individual preferences.
+        </p>
+        <div class="circle4"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function smoothScroll(targetID) {
+                const targetElement = document.getElementById(targetID);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                smoothScroll(hash);
+            }
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetID = this.getAttribute('href').substring(1);
+                    smoothScroll(targetID);
+                    history.pushState(null, null, '#' + targetID);
+                });
+            });
+        });
+
+        // function startFlaskServerAndRedirect() {
+        //     fetch('/save')
+        //         .then(response => {
+        //             if (response.ok) {
+        //                 window.location.href = 'save.html';
+        //             } else {
+        //                 console.error('Failed to start Flask server:', response.statusText);
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error('Error starting Flask server:', error);
+        //         });
+        // }
+    </script>
+</body>
+
+</html>

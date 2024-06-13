@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url('public/resultkanan.png');
+    background-size: cover;
+  }
+  
+  .popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #CAAB8C;
+    padding: 50px;
+    border-radius: 5px;
+    width: 50%;
+    /* box-shadow: 0px 0px 10px rgba(0,0,0,0.1); */
+  }
+  
+  .popup p {
+        font-family: 'Poppins';
+        font-size: 2vw;
+        color: white; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 500; /* Semi-bold */
+  }
+  
+  .button {
+    display: inline-block;
+    padding: 10px;
+    background: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .button:hover {
+    background: #ddd;
+  }
+
+  .box-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3vw; /* Adjust the value to set the desired space between boxes */
+    padding: 3vw;
+    margin-top: 0vw;
+}
+
+.button {
+    background-color: #FFFFFF; /* White background color */
+    color: #D3B9A0; /* Text color */
+    font-family: 'Inter', Arial, sans-serif; /* Inter font */
+    font-weight: 500; /* Semi-bold */
+    font-size: 1.2vw; /* Adjust font size as needed */
+    padding: 1vw 3.5vw; 
+    border: none;
+    border-radius: 0.3vw; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    position: absolute;
+    transform: translate(75%);
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* White background color with 30% opacity */
+    color: #B08F7B; /* Slightly darker color */
+}
+
+.button img {
+    width: 1.5vw; /* Adjust the size of the image */
+    margin-left: 0.8vw;
+    transition: filter 0.3s;
+}
+
+.button:hover img {
+    filter: brightness(80%); /* Darken the image on hover */
+}
+
+.button1 {
+    background-color: #FFFFFF; /* White background color */
+    color: #D3B9A0; /* Text color */
+    font-family: 'Inter', Arial, sans-serif; /* Inter font */
+    font-weight: 500; /* Semi-bold */
+    font-size: 1.2vw; /* Adjust font size as needed */
+    padding: 1vw 3vw; 
+    border: none;
+    border-radius: 0.3vw; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    position: absolute;
+    transform: translate(50%);
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.button1:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* White background color with 30% opacity */
+    color: #B08F7B; /* Slightly darker color */
+
+}
+
+.button1 img {
+    width: 1.5vw; /* Adjust the size of the image */
+    margin-left: 0.8vw;
+    transition: filter 0.3s;
+}
+
+.button1:hover img {
+    filter: brightness(80%); /* Darken the image on hover */
+}

@@ -1,0 +1,354 @@
+@font-face {
+    font-family: 'lemurmure';
+    src: url('le-murmure.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.button-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5vw; /* Add space between the buttons */
+    margin-left: 2vw;
+}
+.header-line {
+    position: relative;
+    height: 0.1px;
+    background-color: white;
+    margin: 0 5%;
+}
+
+::-webkit-scrollbar {
+    width: 12px;              /* Width of the scrollbar */
+    height: 12px;             /* Height of the horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: #D9C7B3;      /* Color of the scrollbar track */
+    border-radius: 10px;      /* Rounded corners of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;         /* Color of the scrollbar thumb */
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;         /* Color of the scrollbar thumb on hover */
+}
+
+body {
+    font-family: Poppins;
+    margin: 0;
+    padding: 0;
+    background-color: #D9C7B3;
+    font-weight: lighter;
+    scrollbar-width: thin;             /* Thin scrollbar */
+    scroll-behavior: smooth;
+}
+
+
+
+header {
+    display: flex;
+    height: 7vw;
+    color: white;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    background-color: #D9C7B3;
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-container {
+    padding: 1vw 2vw;
+}
+
+.navbar {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand {
+    font-size: 3vw;
+    font-weight: bold;
+    font-family: 'lemurmure';
+}
+
+.nav-links {
+    height:7vw;
+    list-style: none;
+    display: flex;
+    padding: 0vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-links li {
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5vw;
+    
+}
+
+.nav-links a:hover {
+    opacity: 0.5;
+}
+
+.yourresult-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    transform: translate(0%, 0%);
+    font-size: 13vw;
+    padding: 7vw;
+    font-family: 'lemurmure';
+    justify-content: center;
+    gap: 2vw;
+    padding-bottom: 2vw;
+}
+
+.bintang5{
+    position: absolute;
+    height:6vw;
+    right: 20vw;
+    transform: translate(10%, 10%)
+}
+
+.bintang6{
+    position: absolute;
+    height:6vw;
+    left: 20vw;
+    transform: translate(0%, 150%)
+}
+
+.feature{
+    color: white;
+}
+
+.scan{
+    -webkit-text-stroke: 0.1vw white; 
+    color: transparent;
+}
+
+.box-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3vw; /* Adjust the value to set the desired space between boxes */
+    padding: 3vw;
+    margin-top: 0vw;
+}
+
+.box-item{
+    position: relative;
+    max-height: 22vw;
+}
+
+.box-item:hover{
+    opacity: 1;
+}
+
+.box-item img {
+    height: 23vw;
+    width:100%;
+    display: block; /* Ensure images behave as block elements */
+}
+
+.box-item:hover .fotoresult {
+    opacity: 1;
+    filter: brightness(1);
+}
+
+.fotoresult {
+    position: relative;
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    filter:brightness(0.8)
+}
+
+.fotoresult:hover {
+    opacity: 0.8;
+    filter:brightness(1)
+}
+
+.boxcontoh{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    transform: translateY(-12vw);
+    z-index: 100;
+    font-family: "Poppins";
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.boxbawah{
+    height:3vw;
+    position: relative;
+    margin-top: 10vw;
+}
+
+.contoh1{
+    font-size: 2vw;
+    /* margin: 1.5vw; */
+    display: contents;
+    justify-content: center;
+}
+
+.button {
+    background-color: #FFFFFF; /* White background color */
+    color: #D3B9A0; /* Text color */
+    font-family: 'Inter', Arial, sans-serif; /* Inter font */
+    font-weight: 500; /* Semi-bold */
+    font-size: 1.2vw; /* Adjust font size as needed */
+    padding: 1vw 2vw; /* Adjust padding as needed */
+    border: none;
+    border-radius: 0.3vw; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    position: absolute;
+    transform: translate(12.5%, 150%);
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* White background color with 30% opacity */
+    color: #B08F7B; /* Slightly darker color */
+
+}
+
+.button img {
+    width: 1.5vw; /* Adjust the size of the image */
+    margin-left: 0.8vw;
+    transition: filter 0.3s;
+}
+
+.button:hover img {
+    filter: brightness(80%); /* Darken the image on hover */
+}
+
+.button1 {
+    background-color: #FFFFFF; /* White background color */
+    color: #D3B9A0; /* Text color */
+    font-family: 'Inter', Arial, sans-serif; /* Inter font */
+    font-weight: 500; /* Semi-bold */
+    font-size: 1.2vw; /* Adjust font size as needed */
+    padding: 1vw 2vw; /* Adjust padding as needed */
+    border: none;
+    border-radius: 0.3vw; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+    position: absolute;
+    transform: translate(-146%, 300%);
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.pop-up{
+    background-color: #FFFFFF; 
+    color: #D3B9A0;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 500; /* Semi-bold */
+    font-size: 1.2vw; /* Adjust font size as needed */
+    padding: 1vw 2vw;
+    border: none;
+    border-radius: 0.3vw;
+    cursor: pointer;
+    position: absolute;
+    transition: bakcground-color 0.3s, color 0.3s;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    transform: translate(10%, 925%);
+}
+
+.pop-up img {
+    width: 1.5vw; /* Adjust the size of the image */
+    margin-left: 0.8vw;
+    transition: filter 0.3s;
+}
+
+.pop-up:hover{
+    filter: brightness(80%);
+}
+
+.button1:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* White background color with 30% opacity */
+    color: #B08F7B; /* Slightly darker color */
+
+}
+
+.button1 img {
+    width: 1.5vw; /* Adjust the size of the image */
+    margin-left: 0.8vw;
+    transition: filter 0.3s;
+}
+
+.button1:hover img {
+    filter: brightness(80%); /* Darken the image on hover */
+}
+
+.aboutusparagraph{
+    font-family: 'Poppins';
+    font-size: 2vw;
+    /* font-size: ; */
+    position: absolute; 
+    color: white; 
+    transform: translate(40%,25%);
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    text-align: left;
+    font-weight: 500; /* Semi-bold */
+}
+
+#file-upload {
+    display: none;
+}
+
+#preview {
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+
+    .auth-buttons {
+        font-size: 2vw;
+    }
+
+    .navbar {
+        align-items: center;
+    }
+
+    .brand-container {
+        margin-bottom: 0;
+    }
+
+    .nav-links a {
+        font-size: 2.5vw;
+        font-weight: lighter;
+    }
+
+    .brand {
+        font-size: 5vw;
+        font-weight: bold;
+        font-family: 'lemurmure';
+    }
+}

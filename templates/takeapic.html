@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webcam Classifier</title>
+    <link rel="stylesheet" href="public/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#shop">Shop</a></li>
+                <div class="brand-container">
+                    <div class="brand">stylescope</div>
+                </div>
+                <li><a href="save.html">Scan</a></li>
+                <li><a href="landingpage.html#about">About</a></li>
+            </ul>
+        </nav>
+    </header>     
+    <div class="yourresult-container">
+        <div class="circle5"></div>
+        <img src="public/bintang.png" class="bintang5">
+        <div class="your">take</div>
+        <div class="result">a</div>
+        <div class="your">pic</div>
+        <img src="public/bintang.png" class="bintang6">
+    </div>
+    <h1 class="desc">Please capture with your face visible to the camera</h1>
+    <div class="video-wrap">
+        <video class="video" id="video" playsinline autoplay></video>
+    </div>
+
+    <button class="buttonn" id="snap">
+        CAPTURE
+        <img src="public/panah.png" alt="Arrow">
+    </button>
+    <h2 class="Gender">Select Gender:</h2>
+    <div class="form-container">
+        <form id="genderForm">
+            <label class="gender-option">
+                <input type="radio" name="gender" value="Man" checked>
+                Male
+            </label>
+            <label class="gender-option woman">
+                <input type="radio" name="gender" value="Woman">
+                Female
+            </label>
+            <button class="genderbut" type="submit">Select</button>
+        </form>
+    </div>
+    <div class="boxbawah2"></div>
+
+    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+    <p id="result"></p>
+    <div id="itemList"></div>
+
+
+    <script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getStorage, ref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+      
+        const firebaseConfig = {
+          apiKey: "AIzaSyCs809_T1AFMr-HQW84CEJ7d_Dz3ZCZIu0",
+          authDomain: "skintonecs.firebaseapp.com",
+          databaseURL: "https://skintonecs-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "skintonecs",
+          storageBucket: "skintonecs.appspot.com",
+          messagingSenderId: "1008643666957",
+          appId: "1:1008643666957:web:f2218c774fd24060e59144"
+        };
+      
+        const app = initializeApp(firebaseConfig);
+        const storage = getStorage(app);
+        'use strict';
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const snap = document.getElementById('snap');
+        const resultElement = document.getElementById('result');
+
+        const constraints = {
+            audio: false,
+            video: {
+                width: 640,
+                height: 480
+            }
+        };
+
+        let listRef;
+
+        async function init() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                handleSuccess(stream);
+            } catch (e) {
+                console.error(`navigator.getUserMedia.error: ${e.toString()}`);
+            }
+        }
+
+        function handleSuccess(stream) {
+            window.stream = stream;
+            video.srcObject = stream;
+        }
+
+        init();
+        var context = canvas.getContext('2d');
+
+        snap.addEventListener('click', function () {
+            context.drawImage(video, 0, 0, 640, 480);
+            const imageData = canvas.toDataURL('image/jpeg', 0.5);
+            const blobData = dataURItoBlob(imageData);
+            const formData = new FormData();
+            formData.append('file', blobData, 'snapshot.jpg'); // Change the filename to snapshot.jpg
+            uploadImage(formData);
+        });
+
+
+        function dataURItoBlob(dataURI) {
+            const byteString = atob(dataURI.split(',')[1]);
+            const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+            const arrayBuffer = new ArrayBuffer(byteString.length);
+            const uint8Array = new Uint8Array(arrayBuffer);
+
+            for (let i = 0; i < byteString.length; i++) {
+                uint8Array[i] = byteString.charCodeAt(i);
+            }
+
+            return new Blob([arrayBuffer], { type: mimeString });
+        }
+
+        let result; // Declare result variable outside the uploadImage function to make it accessible globally
+
+        async function uploadImage(formData) {
+            try {
+                const response = await fetch('/classify', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                result = await response.json();
+                resultElement.innerText =
+                    `Skin Tone: ${result.skin_tone}\nUndertone: ${result.undertone}\nColor: ${result.color}`;
+
+            } catch (error) {
+                console.error('Error uploading image:', error);
+            }
+        }
+
+        const genderForm = document.getElementById('genderForm');
+        genderForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            if (result) {
+                processResult(result, gender);
+            } else {
+                console.error('Result is not available.');
+            }
+        });
+
+        function processResult(result, gender){
+            listRef = ref(storage, `${gender}/${result.color}`);
+            console.log(listRef);
+
+            // Now that listRef is assigned, call listAll here
+            listAll(listRef)
+                .then((res) => {
+                    const itemList = document.getElementById('itemList');
+                    itemList.innerHTML = ''; // Clear previous items
+                    res.items.forEach((itemRef) => {
+                        getDownloadURL(itemRef).then((url) => {
+                            const itemElement = createItemElement(url, itemRef.name);
+                            itemList.appendChild(itemElement);
+                        }).catch((error) => {
+                            console.error('Error getting download URL:', error);
+                        });
+                    });
+                }).catch((error) => {
+                    console.error('Error listing items:', error);
+                });
+        }
+
+        function createItemElement(url, name) {
+            const div = document.createElement('div');
+            const image = document.createElement('img');
+            image.src = url;
+            image.alt = name;
+            image.classList.add('item-image'); // Add a class for styling
+            div.appendChild(image);
+            return div;
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sign In and Log In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #D9C7B3;
+            /* Set the background color directly to the body */
+            display: flex;
+            justify-content: space-between;
+            /* Align content to the left and right */
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .auth-container {
+            background: #fff;
+            /* White background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            /* Fixed width for the left part */
+            height: 100vh;
+            /* Set the height to match the viewport height */
+        }
+
+        .auth-container h2 {
+            text-align: center;
+        }
+
+        .auth-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            font-size: 16px;
+            border-color: black;
+            border-style: solid;
+        }
+
+        .auth-container button.facebook {
+            background-color: #3B5998;
+        }
+
+        .auth-container button.email {
+            background-color: #4CAF50;
+        }
+
+        .auth-container input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .image-container {
+            flex: 1;
+            /* Let the image container fill the remaining space */
+            display: flex;
+            justify-content: center;
+            /* Align images horizontally */
+            align-items: center;
+            /* Align images vertically */
+            position: relative;
+            /* Position the container relative to the body */
+            height: 100vh;
+            height: 65vh;
+            left: 20vh;
+        }
+
+        .image-container img {
+            width: 50%;
+            /* Ensure each image takes up half of the container width */
+            object-fit: cover;
+            /* Maintain aspect ratio while covering the container */
+        }
+
+        .image-container img.front {
+            position: absolute;
+            /* Position the front image absolutely within the container */
+            top: 0;
+            left: 0;
+            transform: translateX(20%);
+            /* Move the front image to the right by 20% */
+            z-index: 1;
+            /* Set a higher z-index for the front image to ensure it's on top */
+        }
+            
+        .image-container img.behind {
+            position: absolute;
+            /* Position the front image absolutely within the container */
+            /* Move the front image to the right by 20% */
+            z-index: 1;
+            width: 140vh;
+            right: 25vh;
+        }
+
+        .all-comp{
+            margin-top: 195px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="all-comp">
+            <h2>Register</h2>
+            <input type="text" id="username" placeholder="Username">
+            <input type="email" id="email" placeholder="Email">
+            <input type="password" id="password" placeholder="Password">
+            <form id="registerForm" method="post" action="landingpage">
+                <button type="submit" id="register">Register</button>
+            </form>
+        </div>
+    </div>
+    <div class="image-container">
+        <img src="public/Auto Layout Horizontal.png" alt="Background Image" class="behind">
+        <img src="public/image 18.png" alt="Background Image" class="front">
+    </div>
+</body>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getDatabase, set, get, ref, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCs809_T1AFMr-HQW84CEJ7d_Dz3ZCZIu0",
+        authDomain: "skintonecs.firebaseapp.com",
+        databaseURL: "https://skintonecs-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "skintonecs",
+        storageBucket: "skintonecs.appspot.com",
+        messagingSenderId: "1008643666957",
+        appId: "1:1008643666957:web:f2218c774fd24060e59144"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // const db = getDatabase(app);
+    // const auth = databs.auth()
+    const auth = getAuth();
+    document.getElementById('register').addEventListener('click', function (e) {
+    event.preventDefault();
+    const password = document.getElementById('password').value;
+    const email = document.getElementById('email').value;
+    const username = document.getElementById('username').value;
+    
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            alert('Creating Account..');
+
+            const db = getDatabase(app);
+            set(ref(db, 'users/' + username), {
+                username: username,
+                email: email,
+            }).then(() => {
+                // After setting data in the database, submit the form
+                document.getElementById("registerForm").submit();
+            });
+        })
+        .catch((error) => {
+            const errorMessage = error.message;
+            alert(errorMessage)
+        });
+});
+
+</script>
+
+</html>

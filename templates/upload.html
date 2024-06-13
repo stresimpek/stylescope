@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Scan&Test</title> -->
+        <link rel="stylesheet" href="upload.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#shop">Shop</a></li>
+                    <div class="brand-container">
+                        <div class="brand">stylescope</div>
+                    </div>
+                    <li><a href="scanpage.html#scan">Scan</a></li>
+                    <li><a href="landingpage.html#about">About</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="boxbawah"></div>
+        <div class="yourresult-container">
+            <div class="circle5"></div>
+            <img src="public/bintang.png" class="bintang5">
+            <div class="feature">feature</div>
+            <div class="scan">scan</div>
+            <img src="public/bintang.png" class="bintang6">
+        </div>
+        <div class="box-container">
+            <div class="box-item">
+                <img class='fotoresult' src="public/resultkiri.png" alt="Result Image 1">
+                <div class="boxcontoh">
+                    <p class="contoh1">Skin Color</p>
+                </div>
+            </div>
+            <div class="box-item">
+                <img class='fotoresult' src="public/resultkanan.png" alt="Result Image 3">
+                <div class="boxcontoh">
+                    <p class="contoh1">Hair Color</p>
+                </div>
+            </div>
+            <div class="box-item">
+                <img class='fotoresult' src="public/resultkanan2.png" alt="Result Image 4">
+                <div class="boxcontoh">
+                    <p class="contoh1">Undertone</p>
+                </div>
+            </div>
+            <a href="scanpage.html">
+                <button class="button">
+                <!-- <a href="scan">SCAN BY CAMERA</a> -->
+                SCAN BY CAMERA
+                <img src="public/panah.png" alt="Arrow">
+                </button>
+            </a>
+            <button class="button1">
+                UPLOAD FROM GALLERY
+                <img src="public/panah.png" alt="Arrow">
+            </button>
+            <p class="aboutusparagraph">
+                Take a picture of your face or choose a photo from the gallery that is clear and not blurry, make sure all features are visible, so that AI can analyze it well
+            </p>
+            <div class="popup-box">
+                <label for="file-upload" class="custom-file-upload">
+                    Choose photo
+                </label>
+                <input id="file-upload" type="file" accept="image/*"/>
+                <div id="preview"></div>
+
+            </div> 
+    </body>
+    <script src="upload.js"></script>
+</html>
